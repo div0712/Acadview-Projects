@@ -82,3 +82,42 @@ def addstatus(spy_name):
                 return ("null")
             else:
                 return (position)
+
+            def send_a_message(spy_name):
+                global count
+                position = select_a_friend(
+                    spy_name)
+                if position == "null":
+                    return (0)
+                else:
+                    f_name = spy_detail[spy_name]["friends"].keys()[position]
+                    from steganography.steganography import Steganography
+                    i_path = "C:\Users\Divyesh\PycharmProjects\ACADVIEW\\"
+                    i_img_name = raw_input("What is the image name(Type along with the extension)?: ")
+                    path = i_path + i_img_name
+                    print "your path with specified image name is: " + path
+                    o_img_name = raw_input("What name should be the output file?(Type along with extension): ")
+                    o_path = "C:\Users\Divyesh\PycharmProjects\ACADVIEW\\"
+                    output_path = o_path + o_img_name
+                    text = raw_input("Enter the TEXT you want to encode: ")
+                    from datetime import datetime
+                    date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    count = count + 1
+                    spy_detail[spy_name]["friends"][f_name]["chat"].update({count: {"text": text, "time": date,
+                                                                                    "boolean": True}})
+                    print "please wait..................................."
+                    s = text.strip().split(" ")
+                    Steganography.encode(path, output_path, text)
+                    print "\nMessage has been encoded and sent to %s.\n" % (
+                    str(spy_detail[spy_name]["friends"].keys()[position]))
+                    for i in range(len(s)):
+                        for j in range(len(special_words)):
+                            if special_words[j] == s[i]:
+                                print "Your message was an emergency message.\n"
+                    if len(text) > 100:
+                        del spy_detail[spy_name]
+                        print "%s has been deleted from dictionary for speaking more than 100 words. Kindly create account again. :)" % (
+                        spy_name)
+                        return (1)
+                    else:
+                        return (0)
