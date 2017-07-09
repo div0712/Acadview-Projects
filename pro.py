@@ -9,7 +9,7 @@ def addstatus(spy_name):
         print "You are not having previous status\n"
         loop=1
         if loop==0:
-            print "You are having predefined status which is : "+str(spy_detail[spy_name]["status"])
+            print "You are havi2ng predefined status which is : "+str(spy_detail[spy_name]["status"])
         choice=int(raw_input("STATUS OPTIONS :1.Choose from predefined list of status\n2.Choose from your status hisory\n3.Create new status\nPress 1 or 2 or 3: "))
         if choice==1:
             length=len(status)
@@ -64,3 +64,21 @@ def addstatus(spy_name):
         print "\nFriend has been added successfully.\n Details of the recently added friend:\n%s \n" % (f_name) + str(
             spy_detail[spy_name]["friends"][f_name])
         return (len(spy_detail[spy_name]["friends"].keys()))
+
+    def select_a_friend(spy_name):
+        leng = len(spy_detail[spy_name]["friends"])
+        if leng == 0:
+            print "You have no friends added. \n"
+            return ("null")
+        else:
+            print "You have following people in your friend list: \n"
+            for i in range(0, leng):
+                print str(i + 1) + ". " + str(spy_detail[spy_name]["friends"].keys()[i])
+            position = int(
+                raw_input("Enter the number corresponding to your choice of friend with whom you want to continue: "))
+            position = position - 1
+            if (position < 0 or position >= leng):
+                print "You have entered a wrong input\nTry again.\n"
+                return ("null")
+            else:
+                return (position)
